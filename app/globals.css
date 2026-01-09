@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --nexus-blue: #0c3a6d;
+  --nexus-blue-light: #1e5a97;
+  --nexus-slate: #394b5a;
+  --nexus-mist: #f4f7fb;
+  --nexus-ice: #e7eef6;
+}
+
+body {
+  color: var(--nexus-slate);
+  background: radial-gradient(1200px 600px at 10% 0%, #eff4fa, #ffffff);
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), "Times New Roman", serif;
+}

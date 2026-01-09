@@ -1,0 +1,66 @@
+[
+  {
+    "id": "scrubs",
+    "title": "Project Scrubs",
+    "description": "Search for publications in PubMed, Scopus, and Web of Science.",
+    "urls": [
+      {
+        "url": "https://lemon-bush-0637d9610.1.azurestaticapps.net",
+        "label": "Open Workspace"
+      }
+    ],
+    "iconName": "Sparkles"
+  },
+  {
+    "id": "biosketch",
+    "title": "Project Biosketch",
+    "description": "Compare faculty CVs against NIH standards.",
+    "urls": [
+      {
+        "url": "https://zealous-cliff-00197f110.4.azurestaticapps.net",
+        "label": "Open Workspace"
+      }
+    ],
+    "iconName": "FileText"
+  },
+  {
+    "id": "guardrails",
+    "title": "Project Guardrails",
+    "description": "AI safety and compliance in Research.",
+    "urls": [
+      {
+        "url": "https://ashy-mud-0c38d9410.6.azurestaticapps.net",
+        "label": "Open Workspace"
+      }
+    ],
+    "iconName": "ShieldCheck"
+  },
+  {
+    "id": "sim",
+    "title": "Project Sim",
+    "description": "AI Enabled Simulation builder",
+    "urls": [
+      {
+        "url": "https://thankful-wave-0955fc710.1.azurestaticapps.net/sim",
+        "label": "Student Interface"
+      },
+      {
+        "url": "https://thankful-wave-0955fc710.1.azurestaticapps.net/config",
+        "label": "Instructor Config"
+      }
+    ],
+    "iconName": "FlaskConical"
+  },
+  {
+    "id": "signal",
+    "title": "Project Signal",
+    "description": "Learn about anything, anytime, anywhere.",
+    "urls": [
+      {
+        "url": "https://agreeable-sand-0c4980210-1.centralus.1.azurestaticapps.net",
+        "label": "Latest Release"
+      }
+    ],
+    "iconName": "LineChart"
+  }
+]
