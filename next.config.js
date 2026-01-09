@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone", // <--- ADD THIS LINE
+  output: "export", // <--- ADD THIS LINE
   reactStrictMode: true
 };
 
