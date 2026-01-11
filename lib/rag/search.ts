@@ -5,6 +5,11 @@ const endpoint = process.env.AZURE_SEARCH_ENDPOINT || "";
 const apiKey = process.env.AZURE_SEARCH_KEY || "";
 const indexName = process.env.AZURE_SEARCH_INDEX || "uab-nursing-index";
 
+type SearchResultDocument = {
+  title?: string;
+  chunk?: string;
+};
+
 // 2. Define the "Retrieval" Function
 export async function getContext(query: string): Promise<string> {
   if (!endpoint || !apiKey) {
@@ -13,7 +18,11 @@ export async function getContext(query: string): Promise<string> {
   }
 
   try {
-    const client = new SearchClient(endpoint, indexName, new AzureKeyCredential(apiKey));
+    const client = new SearchClient<SearchResultDocument>(
+      endpoint,
+      indexName,
+      new AzureKeyCredential(apiKey)
+    );
 
     console.log(`🔍 Querying Azure Search for: "${query}"`);
 
