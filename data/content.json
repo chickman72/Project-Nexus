@@ -62,5 +62,17 @@
       }
     ],
     "iconName": "LineChart"
+  },
+  {
+    "id": "retina",
+    "title": "Project Retina",
+    "description": "Analyze images for pneumonia.",
+    "urls": [
+      {
+        "url": "https://thankful-coast-09ee35310.6.azurestaticapps.net/",
+        "label": "Latest Release"
+      }
+    ],
+    "iconName": "Scan"
   }
 ]
