@@ -1,3 +1,5 @@
 node_modules
 .next/trace
-.next/trace
+.next
+.env.local
+scrape_uab.py
