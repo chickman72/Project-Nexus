@@ -62,5 +62,29 @@
       }
     ],
     "iconName": "LineChart"
+  },
+  {
+    "id": "retina",
+    "title": "Project Retina",
+    "description": "Analyze images for pneumonia.",
+    "urls": [
+      {
+        "url": "https://thankful-coast-09ee35310.6.azurestaticapps.net/",
+        "label": "Latest Release"
+      }
+    ],
+    "iconName": "Scan"
+  },
+  {
+    "id": "triage",
+    "title": "Project Triage",
+    "description": "AI Enabled Health Record.",
+    "urls": [
+      {
+        "url": "https://black-meadow-0b6d7260f.4.azurestaticapps.net/",
+        "label": "Latest Release"
+      }
+    ],
+    "iconName": "Scan"
   }
 ]

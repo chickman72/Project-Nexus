@@ -12,6 +12,7 @@ export default function ChatWidget() {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [conversationId, setConversationId] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -32,11 +33,17 @@ export default function ChatWidget() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: trimmed })
+        body: JSON.stringify({
+          message: trimmed,
+          conversationId: conversationId || undefined
+        })
       });
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data?.error || "Chat request failed.");
+      }
+      if (data?.conversationId) {
+        setConversationId(data.conversationId);
       }
       setMessages((prev) => [
         ...prev,
@@ -75,15 +82,16 @@ export default function ChatWidget() {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() =>
+            onClick={() => {
               setMessages([
                 {
                   id: "intro",
                   role: "assistant",
                   content: "Hi! Ask me about SON tools, policies, or next steps."
                 }
-              ])
-            }
+              ]);
+              setConversationId("");
+            }}
             className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 transition hover:border-slate-300 hover:text-slate-700"
           >
             New Chat

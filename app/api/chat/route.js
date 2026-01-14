@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getContext } from "../../../lib/rag/search";
+import { appendMessage, getOrCreateSession } from "../../../lib/chat/session";
 
 function corsHeaders(request) {
   const allowOrigin = process.env.CHAT_API_ALLOW_ORIGIN || "*";
@@ -61,6 +62,7 @@ export async function POST(request) {
     body = {};
   }
   const message = body.message ?? "";
+  const conversationId = body.conversationId ?? "";
   console.log("[/api/chat] body keys:", Object.keys(body || {}));
   console.log("[/api/chat] message length:", message.length);
 
@@ -71,7 +73,13 @@ export async function POST(request) {
     );
   }
 
-  const context = await getContext(message);
+  const { id: sessionId, session } = getOrCreateSession(conversationId);
+  const recentUserMessages = session.messages
+    .filter((item) => item.role === "user")
+    .slice(-3)
+    .map((item) => item.content);
+  const retrievalQuery = [...recentUserMessages, message].join(" ").trim();
+  const context = await getContext(retrievalQuery || message);
   console.log("[/api/chat] context length:", context.length);
 
   const systemMessage = {
@@ -115,7 +123,7 @@ export async function POST(request) {
     },
     body: JSON.stringify({
       model,
-      messages: [systemMessage, userMessage]
+      messages: [systemMessage, ...session.messages, userMessage]
     })
   });
 
@@ -140,10 +148,15 @@ export async function POST(request) {
 
   const data = await response.json();
   const reply = data?.choices?.[0]?.message?.content?.trim() || "";
+  appendMessage(session, userMessage);
+  if (reply) {
+    appendMessage(session, { role: "assistant", content: reply });
+  }
 
   return NextResponse.json(
     {
-      reply: reply || "I couldn't generate a response right now."
+      reply: reply || "I couldn't generate a response right now.",
+      conversationId: sessionId
     },
     { headers }
   );

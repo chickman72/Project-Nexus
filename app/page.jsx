@@ -21,15 +21,6 @@ export default async function HomePage() {
               and compliance tooling.
             </p>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white/80 px-6 py-4 text-sm text-slate-500 shadow-card">
-            <span className="font-semibold text-[color:var(--nexus-blue)]">
-              Data source:
-            </span>{" "}
-            content.json
-            <div className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-400">
-              Easily add new projects
-            </div>
-          </div>
         </div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -39,11 +30,12 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <Script
-        src="/embed.js"
+      <nexus-chat-widget
         data-api-key={process.env.NEXT_PUBLIC_CHAT_API_KEY}
-        strategy="afterInteractive"
+        data-api-url="/api/chat"
       />
+      <Script src="/embed.js" strategy="afterInteractive" />
+
     </main>
   );
 }
