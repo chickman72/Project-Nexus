@@ -74,17 +74,5 @@
       }
     ],
     "iconName": "Scan"
-  },
-  {
-    "id": "triage",
-    "title": "Project Triage",
-    "description": "AI Enabled Health Record.",
-    "urls": [
-      {
-        "url": "https://black-meadow-0b6d7260f.4.azurestaticapps.net/",
-        "label": "Latest Release"
-      }
-    ],
-    "iconName": "Scan"
   }
 ]
