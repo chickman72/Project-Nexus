@@ -4,5 +4,4 @@ node_modules
 .env.local
 scrape_uab.py
 .next/trace
-.env.local
-.trace
+trace
