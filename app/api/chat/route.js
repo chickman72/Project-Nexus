@@ -28,7 +28,8 @@ export function OPTIONS(request) {
 
 export async function POST(request) {
   const headers = corsHeaders(request);
-  const expectedApiKey = process.env.CHAT_API_KEY || "";
+  const expectedApiKey =
+    process.env.CHAT_API_KEY || process.env.NEXT_PUBLIC_CHAT_API_KEY || "";
   const providedApiKey = request.headers.get("x-api-key") || "";
   const origin = request?.headers?.get("origin") || "";
   const maskedProvidedKey = providedApiKey
