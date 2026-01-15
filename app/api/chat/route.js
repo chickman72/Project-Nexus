@@ -17,21 +17,9 @@ function corsHeaders(request) {
   return {
     "Access-Control-Allow-Origin": requestOrigin,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, x-api-key",
+    "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Max-Age": "86400"
   };
-}
-
-function normalizeApiKey(value) {
-  if (!value) return "";
-  let key = value.trim();
-  if (
-    (key.startsWith('"') && key.endsWith('"')) ||
-    (key.startsWith("'") && key.endsWith("'"))
-  ) {
-    key = key.slice(1, -1).trim();
-  }
-  return key;
 }
 
 export function OPTIONS(request) {
@@ -40,35 +28,8 @@ export function OPTIONS(request) {
 
 export async function POST(request) {
   const headers = corsHeaders(request);
-  const expectedApiKey = normalizeApiKey(
-    process.env.CHAT_API_KEY || ""
-  );
-  const providedApiKey = normalizeApiKey(
-    request.headers.get("x-api-key") || ""
-  );
   const origin = request?.headers?.get("origin") || "";
-  const maskedProvidedKey = providedApiKey
-    ? `${providedApiKey.slice(0, 4)}...${providedApiKey.slice(-4)}`
-    : "(missing)";
-  const maskedExpectedKey = expectedApiKey
-    ? `${expectedApiKey.slice(0, 4)}...${expectedApiKey.slice(-4)}`
-    : "(missing)";
   console.log("[/api/chat] origin:", origin);
-  console.log("[/api/chat] api key:", maskedProvidedKey, "expected:", maskedExpectedKey);
-
-  if (!expectedApiKey) {
-    return NextResponse.json(
-      { error: "Chat API key is not configured." },
-      { status: 500, headers }
-    );
-  }
-
-  if (!providedApiKey || providedApiKey !== expectedApiKey) {
-    return NextResponse.json(
-      { error: "Unauthorized." },
-      { status: 401, headers }
-    );
-  }
 
   const rawBody = await request.text();
   let body = {};

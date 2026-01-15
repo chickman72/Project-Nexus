@@ -5,3 +5,4 @@ node_modules
 scrape_uab.py
 .next/trace
 trace
+.next/trace

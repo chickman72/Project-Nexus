@@ -9,7 +9,6 @@
   }
 
   var defaultConfig = {
-    apiKey: scriptTag && scriptTag.getAttribute("data-api-key"),
     apiUrl: (scriptTag && scriptTag.getAttribute("data-api-url")) || "/api/chat",
     mode: (scriptTag && scriptTag.getAttribute("data-mode")) || "floating",
     header: (scriptTag && scriptTag.getAttribute("data-header")) || "Ask SON AI",
@@ -26,7 +25,6 @@
 
   function getConfigForElement(element) {
     return {
-      apiKey: element.getAttribute("data-api-key") || defaultConfig.apiKey,
       apiUrl: element.getAttribute("data-api-url") || defaultConfig.apiUrl,
       mode: element.getAttribute("data-mode") || defaultConfig.mode,
       header: element.getAttribute("data-header") || defaultConfig.header,
@@ -138,7 +136,7 @@
 
     async function sendMessage() {
       var text = input.value.trim();
-      if (!text || !config.apiKey) return;
+      if (!text) return;
       setError("");
       addMessage(text, "user");
       input.value = "";
@@ -148,8 +146,7 @@
         var response = await fetch(config.apiUrl, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-            "x-api-key": config.apiKey
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
             message: text,
@@ -174,10 +171,6 @@
     }
 
     addMessage(config.intro, "bot");
-
-    if (!config.apiKey) {
-      setError("Missing API key for chat widget.");
-    }
 
     button.addEventListener("click", function () {
       panel.classList.toggle("open");
