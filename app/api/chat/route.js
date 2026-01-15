@@ -22,15 +22,30 @@ function corsHeaders(request) {
   };
 }
 
+function normalizeApiKey(value) {
+  if (!value) return "";
+  let key = value.trim();
+  if (
+    (key.startsWith('"') && key.endsWith('"')) ||
+    (key.startsWith("'") && key.endsWith("'"))
+  ) {
+    key = key.slice(1, -1).trim();
+  }
+  return key;
+}
+
 export function OPTIONS(request) {
   return new NextResponse(null, { status: 204, headers: corsHeaders(request) });
 }
 
 export async function POST(request) {
   const headers = corsHeaders(request);
-  const expectedApiKey =
-    process.env.CHAT_API_KEY || process.env.NEXT_PUBLIC_CHAT_API_KEY || "";
-  const providedApiKey = request.headers.get("x-api-key") || "";
+  const expectedApiKey = normalizeApiKey(
+    process.env.CHAT_API_KEY || ""
+  );
+  const providedApiKey = normalizeApiKey(
+    request.headers.get("x-api-key") || ""
+  );
   const origin = request?.headers?.get("origin") || "";
   const maskedProvidedKey = providedApiKey
     ? `${providedApiKey.slice(0, 4)}...${providedApiKey.slice(-4)}`

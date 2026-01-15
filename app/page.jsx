@@ -30,10 +30,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <nexus-chat-widget
-        data-api-key={process.env.NEXT_PUBLIC_CHAT_API_KEY}
-        data-api-url="/api/chat"
-      />
+      <nexus-chat-widget />
       <Script src="/embed.js" strategy="afterInteractive" />
 
     </main>
