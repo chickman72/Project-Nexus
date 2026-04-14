@@ -41,12 +41,8 @@
     "description": "AI Enabled Simulation builder",
     "urls": [
       {
-        "url": "https://thankful-wave-0955fc710.1.azurestaticapps.net/sim",
-        "label": "Student Interface"
-      },
-      {
-        "url": "https://thankful-wave-0955fc710.1.azurestaticapps.net/config",
-        "label": "Instructor Config"
+        "url": "https://sim.chrishickman.net",
+        "label": "Latest Release"
       }
     ],
     "iconName": "FlaskConical"
