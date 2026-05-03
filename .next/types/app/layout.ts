@@ -1,4 +1,4 @@
-// File: C:\Users\alton\OneDrive - UAB - The University of Alabama at Birmingham\Visual Studio Code\Project Nexus\app\layout.jsx
+// File: D:\Development\Project Nexus\app\layout.jsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

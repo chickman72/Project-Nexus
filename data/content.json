@@ -41,7 +41,7 @@
     "description": "AI Enabled Simulation builder",
     "urls": [
       {
-        "url": "https://sim.chrishickman.net",
+        "url": "https://sim.cognitiveclinicals.com",
         "label": "Latest Release"
       }
     ],
@@ -53,7 +53,7 @@
     "description": "Learn about anything, anytime, anywhere.",
     "urls": [
       {
-        "url": "https://agreeable-sand-0c4980210-1.centralus.1.azurestaticapps.net",
+        "url": "https://signal.cognitiveclinicals.com/",
         "label": "Latest Release"
       }
     ],
@@ -82,5 +82,41 @@
       }
     ],
     "iconName": "Stethoscope"
+  },
+  {
+    "id": "scan",
+    "title": "Project Scan",
+    "description": "Create and manage QR Codes.",
+    "urls": [
+      {
+        "url": "https://scan.chrishickman.net/",
+        "label": "Latest Release"
+      }
+    ],
+    "iconName": "Code"
+  },
+  {
+    "id": "matchmaker",
+    "title": "Project Matchmaker",
+    "description": "Find Research Collaborators.",
+    "urls": [
+      {
+        "url": "https://matchmaker.cognitiveclinicals.com/",
+        "label": "Latest Release"
+      }
+    ],
+    "iconName": "Code"
+  },
+  {
+    "id": "extraction",
+    "title": "Medical Literature Extraction Tool",
+    "description": "Summarize scholarly articles.",
+    "urls": [
+      {
+        "url": "https://consensus.cognitiveclinicals.com",
+        "label": "Latest Release"
+      }
+    ],
+    "iconName": "Code"
   }
 ]
