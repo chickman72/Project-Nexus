@@ -41,8 +41,7 @@ export default function HomePage() {
               Project Nexus
             </h1>
             <p className="mt-4 text-base text-slate-600 sm:text-lg">
-              A centralized launchpad for clinical education, research support,
-              and compliance tooling.
+              A launchpad for clinical education, research support, and compliance tooling.
             </p>
           </div>
         </div>
