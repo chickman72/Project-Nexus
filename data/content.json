@@ -118,5 +118,17 @@
       }
     ],
     "iconName": "Code"
+  },
+  {
+    "id": "chat",
+    "title": "SON Chat",
+    "description": "Chat with a secured AI.",
+    "urls": [
+      {
+        "url": "https://chat.cognitiveclinicals.com",
+        "label": "Latest Release"
+      }
+    ],
+    "iconName": "Chat"
   }
 ]
