@@ -3,6 +3,7 @@
     "id": "scrubs",
     "title": "Project Scrubs",
     "description": "Search for publications in PubMed, Scopus, and Web of Science.",
+    "category": "Research",
     "urls": [
       {
         "url": "https://lemon-bush-0637d9610.1.azurestaticapps.net",
@@ -15,6 +16,7 @@
     "id": "biosketch",
     "title": "Project Biosketch",
     "description": "Compare faculty CVs against NIH standards.",
+    "category": "Research",
     "urls": [
       {
         "url": "https://zealous-cliff-00197f110.4.azurestaticapps.net",
@@ -27,6 +29,7 @@
     "id": "guardrails",
     "title": "Project Guardrails",
     "description": "AI safety and compliance in Research.",
+    "category": "Compliance",
     "urls": [
       {
         "url": "https://ashy-mud-0c38d9410.6.azurestaticapps.net",
@@ -39,6 +42,7 @@
     "id": "sim",
     "title": "Project Sim",
     "description": "AI Enabled Simulation builder",
+    "category": "Education",
     "urls": [
       {
         "url": "https://sim.cognitiveclinicals.com",
@@ -51,6 +55,7 @@
     "id": "signal",
     "title": "Project Signal",
     "description": "Learn about anything, anytime, anywhere.",
+    "category": "Education",
     "urls": [
       {
         "url": "https://signal.cognitiveclinicals.com/",
@@ -63,6 +68,7 @@
     "id": "retina",
     "title": "Project Retina",
     "description": "Analyze images for pneumonia.",
+    "category": "Clinical",
     "urls": [
       {
         "url": "https://thankful-coast-09ee35310.6.azurestaticapps.net/",
@@ -75,6 +81,7 @@
     "id": "triage",
     "title": "Project Triage",
     "description": "AI enabled health care record.",
+    "category": "Clinical",
     "urls": [
       {
         "url": "https://black-meadow-0b6d7260f.4.azurestaticapps.net/",
@@ -87,6 +94,7 @@
     "id": "scan",
     "title": "Project Scan",
     "description": "Create and manage QR Codes.",
+    "category": "Utilities",
     "urls": [
       {
         "url": "https://scan.chrishickman.net/",
@@ -99,6 +107,7 @@
     "id": "matchmaker",
     "title": "Project Matchmaker",
     "description": "Find Research Collaborators.",
+    "category": "Research",
     "urls": [
       {
         "url": "https://matchmaker.cognitiveclinicals.com/",
@@ -111,6 +120,7 @@
     "id": "extraction",
     "title": "Medical Literature Extraction Tool",
     "description": "Summarize scholarly articles.",
+    "category": "Research",
     "urls": [
       {
         "url": "https://consensus.cognitiveclinicals.com",
@@ -123,6 +133,7 @@
     "id": "chat",
     "title": "SON Chat",
     "description": "Chat with a secured AI.",
+    "category": "Utilities",
     "urls": [
       {
         "url": "https://chat.cognitiveclinicals.com",
