@@ -141,5 +141,18 @@
       }
     ],
     "iconName": "Chat"
+  },
+  {
+    "id": "aptitude",
+    "title": "APT Platform",
+    "description": "Manage your career.",
+    "category": "Utilities",
+    "urls": [
+      {
+        "url": "https://aptitude.chrishickman.net/",
+        "label": "Open"
+      }
+    ],
+    "iconName": "Work"
   }
 ]
