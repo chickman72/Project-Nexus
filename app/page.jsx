@@ -1,32 +1,77 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Script from "next/script";
-import { LayoutGrid, List, Search } from "lucide-react";
+import { LayoutGrid, List, Search, Star } from "lucide-react";
 import { DynamicIcon } from "../components/IconHelper";
 import toolsData from "../data/content.json";
+
+const FAVORITES_CATEGORY = "Favorites";
+const FAVORITES_STORAGE_KEY = "project-nexus-favorites";
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [viewMode, setViewMode] = useState("grid");
+  const [favoriteIds, setFavoriteIds] = useState([]);
+  const [hasLoadedFavorites, setHasLoadedFavorites] = useState(false);
+
+  useEffect(() => {
+    try {
+      const storedFavorites = window.localStorage.getItem(FAVORITES_STORAGE_KEY);
+      if (storedFavorites) {
+        const parsedFavorites = JSON.parse(storedFavorites);
+        if (Array.isArray(parsedFavorites)) {
+          setFavoriteIds(parsedFavorites);
+        }
+      }
+    } catch {
+      setFavoriteIds([]);
+    } finally {
+      setHasLoadedFavorites(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!hasLoadedFavorites) {
+      return;
+    }
+
+    window.localStorage.setItem(
+      FAVORITES_STORAGE_KEY,
+      JSON.stringify(favoriteIds)
+    );
+  }, [favoriteIds, hasLoadedFavorites]);
 
   // Derive unique categories from the data
   const categories = useMemo(() => {
     const uniqueCategories = [...new Set(toolsData.map((tool) => tool.category))];
-    return ["All", ...uniqueCategories.sort()];
+    return ["All", FAVORITES_CATEGORY, ...uniqueCategories.sort()];
   }, []);
+
+  const favoriteIdSet = useMemo(() => new Set(favoriteIds), [favoriteIds]);
+
+  const toggleFavorite = (toolId) => {
+    setFavoriteIds((currentFavoriteIds) =>
+      currentFavoriteIds.includes(toolId)
+        ? currentFavoriteIds.filter((favoriteId) => favoriteId !== toolId)
+        : [...currentFavoriteIds, toolId]
+    );
+  };
 
   // Filter tools based on search query and active category
   const filteredTools = useMemo(() => {
     return toolsData.filter((tool) => {
-      const matchesCategory = activeCategory === "All" || tool.category === activeCategory;
+      const matchesCategory =
+        activeCategory === "All" ||
+        (activeCategory === FAVORITES_CATEGORY && favoriteIdSet.has(tool.id)) ||
+        tool.category === activeCategory;
       const matchesSearch = searchQuery === "" ||
         tool.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         tool.description.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
     });
-  }, [searchQuery, activeCategory]);
+  }, [searchQuery, activeCategory, favoriteIdSet]);
 
   return (
     <main className="min-h-screen px-6 pb-20 pt-12 sm:px-10">
@@ -120,12 +165,40 @@ export default function HomePage() {
                 key={tool.id}
                 className="flex flex-col gap-4 rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
               >
-                {/* Icon */}
-                <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-blue-50">
-                  <DynamicIcon
-                    iconName={tool.iconName}
-                    className="w-6 h-6 text-blue-600"
-                  />
+                <div className="flex items-start justify-between gap-3">
+                  {/* Icon */}
+                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-blue-50">
+                    <DynamicIcon
+                      iconName={tool.iconName}
+                      className="w-6 h-6 text-blue-600"
+                    />
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => toggleFavorite(tool.id)}
+                    className={`rounded-full p-2 transition-colors ${
+                      favoriteIdSet.has(tool.id)
+                        ? "bg-amber-50 text-amber-500 hover:bg-amber-100"
+                        : "text-slate-400 hover:bg-slate-100 hover:text-amber-500"
+                    }`}
+                    aria-label={
+                      favoriteIdSet.has(tool.id)
+                        ? `Remove ${tool.title} from favorites`
+                        : `Add ${tool.title} to favorites`
+                    }
+                    aria-pressed={favoriteIdSet.has(tool.id)}
+                    title={
+                      favoriteIdSet.has(tool.id)
+                        ? "Remove from favorites"
+                        : "Add to favorites"
+                    }
+                  >
+                    <Star
+                      className="w-5 h-5"
+                      fill={favoriteIdSet.has(tool.id) ? "currentColor" : "none"}
+                    />
+                  </button>
                 </div>
 
                 {/* Title and Description */}
@@ -185,6 +258,32 @@ export default function HomePage() {
                   </div>
                 </div>
 
+                <button
+                  type="button"
+                  onClick={() => toggleFavorite(tool.id)}
+                  className={`flex-shrink-0 rounded-full p-2 transition-colors ${
+                    favoriteIdSet.has(tool.id)
+                      ? "bg-amber-50 text-amber-500 hover:bg-amber-100"
+                      : "text-slate-400 hover:bg-slate-100 hover:text-amber-500"
+                  }`}
+                  aria-label={
+                    favoriteIdSet.has(tool.id)
+                      ? `Remove ${tool.title} from favorites`
+                      : `Add ${tool.title} to favorites`
+                  }
+                  aria-pressed={favoriteIdSet.has(tool.id)}
+                  title={
+                    favoriteIdSet.has(tool.id)
+                      ? "Remove from favorites"
+                      : "Add to favorites"
+                  }
+                >
+                  <Star
+                    className="w-5 h-5"
+                    fill={favoriteIdSet.has(tool.id) ? "currentColor" : "none"}
+                  />
+                </button>
+
                 {/* Action Button */}
                 <a
                   href={tool.urls[0]?.url}
@@ -203,7 +302,9 @@ export default function HomePage() {
         {filteredTools.length === 0 && (
           <div className="mt-10 rounded-lg border border-slate-200 bg-slate-50 px-6 py-12 text-center">
             <p className="text-slate-600">
-              No tools found matching your search. Try adjusting your filters or search query.
+              {activeCategory === FAVORITES_CATEGORY
+                ? "No favorites found. Star tools to add them here."
+                : "No tools found matching your search. Try adjusting your filters or search query."}
             </p>
           </div>
         )}
