@@ -246,16 +246,21 @@ export default function HomePage() {
                   />
                 </div>
 
-                {/* Title and Category */}
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-slate-900 truncate">
-                    {tool.title}
-                  </h3>
-                  <div className="mt-1">
-                    <span className="inline-block rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
-                      {tool.category}
-                    </span>
+                {/* Title, Category, and Description */}
+                <div className="flex min-w-0 flex-1 flex-col gap-2 md:grid md:grid-cols-[minmax(12rem,18rem)_minmax(0,1fr)] md:items-center md:gap-4">
+                  <div className="min-w-0">
+                    <h3 className="truncate font-semibold text-slate-900">
+                      {tool.title}
+                    </h3>
+                    <div className="mt-1">
+                      <span className="inline-block rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
+                        {tool.category}
+                      </span>
+                    </div>
                   </div>
+                  <p className="min-w-0 truncate text-sm text-slate-600">
+                    {tool.description}
+                  </p>
                 </div>
 
                 <button
