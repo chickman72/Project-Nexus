@@ -7,7 +7,7 @@
     "urls": [
       {
         "url": "https://lemon-bush-0637d9610.1.azurestaticapps.net",
-        "label": "Open Workspace"
+        "label": "Open"
       }
     ],
     "iconName": "Sparkles"
@@ -20,7 +20,7 @@
     "urls": [
       {
         "url": "https://zealous-cliff-00197f110.4.azurestaticapps.net",
-        "label": "Open Workspace"
+        "label": "Open"
       }
     ],
     "iconName": "FileText"
@@ -33,7 +33,7 @@
     "urls": [
       {
         "url": "https://ashy-mud-0c38d9410.6.azurestaticapps.net",
-        "label": "Open Workspace"
+        "label": "Open"
       }
     ],
     "iconName": "ShieldCheck"
@@ -46,7 +46,7 @@
     "urls": [
       {
         "url": "https://sim.cognitiveclinicals.com",
-        "label": "Latest Release"
+        "label": "Open"
       }
     ],
     "iconName": "FlaskConical"
@@ -59,7 +59,7 @@
     "urls": [
       {
         "url": "https://signal.cognitiveclinicals.com/",
-        "label": "Latest Release"
+        "label": "Open"
       }
     ],
     "iconName": "LineChart"
@@ -72,7 +72,7 @@
     "urls": [
       {
         "url": "https://thankful-coast-09ee35310.6.azurestaticapps.net/",
-        "label": "Latest Release"
+        "label": "Open"
       }
     ],
     "iconName": "Scan"
@@ -85,7 +85,7 @@
     "urls": [
       {
         "url": "https://black-meadow-0b6d7260f.4.azurestaticapps.net/",
-        "label": "Latest Release"
+        "label": "Open"
       }
     ],
     "iconName": "Stethoscope"
@@ -98,7 +98,7 @@
     "urls": [
       {
         "url": "https://scan.chrishickman.net/",
-        "label": "Latest Release"
+        "label": "Open"
       }
     ],
     "iconName": "Code"
@@ -111,7 +111,7 @@
     "urls": [
       {
         "url": "https://matchmaker.cognitiveclinicals.com/",
-        "label": "Latest Release"
+        "label": "Open"
       }
     ],
     "iconName": "Code"
@@ -124,7 +124,7 @@
     "urls": [
       {
         "url": "https://consensus.cognitiveclinicals.com",
-        "label": "Latest Release"
+        "label": "Open"
       }
     ],
     "iconName": "Code"
@@ -137,7 +137,7 @@
     "urls": [
       {
         "url": "https://chat.cognitiveclinicals.com",
-        "label": "Latest Release"
+        "label": "Open"
       }
     ],
     "iconName": "Chat"
