@@ -2,16 +2,14 @@
   "routes": [
     {
       "route": "/.auth/*",
-      "allowedRoles": [
-        "anonymous",
-        "authenticated"
-      ]
+      "allowedRoles": ["anonymous", "authenticated"]
     },
     {
       "route": "/*",
-      "allowedRoles": [
-        "authenticated"
-      ]
+      "allowedRoles": ["authenticated"],
+      "headers": {
+        "Cache-Control": "no-store"
+      }
     }
   ],
   "responseOverrides": {
