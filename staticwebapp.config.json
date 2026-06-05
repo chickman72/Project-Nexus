@@ -19,5 +19,11 @@
       "statusCode": 302,
       "redirect": "/.auth/login/aad"
     }
+  },
+  "forwardingGateway": {
+    "allowedForwardedHosts": [
+      "son-ai-g0c3ccepcwe3ewg2.a01.azurefd.net",
+      "ai.son.uab.edu"
+    ]
   }
 }
