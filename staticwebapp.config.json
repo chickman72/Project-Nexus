@@ -21,6 +21,9 @@
     }
   },
   "forwardingGateway": {
+  "requiredHeaders": {
+      "X-Azure-FDID": "9fb34c0e-4ea5-4d61-afaf-773ddd9262b3"
+    },
     "allowedForwardedHosts": [
       "son-ai-g0c3ccepcwe3ewg2.a01.azurefd.net",
       "ai.son.uab.edu"
