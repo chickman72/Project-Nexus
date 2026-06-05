@@ -25,5 +25,8 @@
       "son-ai-g0c3ccepcwe3ewg2.a01.azurefd.net",
       "ai.son.uab.edu"
     ]
+  },
+    "globalHeaders": {
+    "x-nexus-config-test": "loaded"
   }
 }
