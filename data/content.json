@@ -28,11 +28,11 @@
   {
     "id": "guardrails",
     "title": "Project Guardrails",
-    "description": "AI safety and compliance in Research.",
+    "description": "AI safety and compliance in Research. (SON)",
     "category": "Compliance",
     "urls": [
       {
-        "url": "https://ashy-mud-0c38d9410.6.azurestaticapps.net",
+        "url": "https://witty-desert-020c35e10.7.azurestaticapps.net",
         "label": "Open"
       }
     ],
