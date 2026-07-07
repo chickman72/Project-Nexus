@@ -7,11 +7,31 @@ import { DynamicIcon } from "../components/IconHelper";
 import toolsData from "../data/content.json";
 
 const FAVORITES_CATEGORY = "Favorites";
+const PRODUCTION_SYSTEMS_CATEGORY = "Production Systems";
+const DEMO_SYSTEMS_CATEGORY = "Demo Systems";
 const FAVORITES_STORAGE_KEY = "project-nexus-favorites";
+
+function isDemoSystem(tool) {
+  return tool.systemType === "demo";
+}
+
+function isProductionSystem(tool) {
+  return !isDemoSystem(tool);
+}
+
+function getSystemTypeLabel(tool) {
+  return isDemoSystem(tool) ? "Demo Only" : "Production";
+}
+
+function getSystemTypeClassName(tool) {
+  return isDemoSystem(tool)
+    ? "bg-amber-100 text-amber-800 ring-1 ring-amber-200"
+    : "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100";
+}
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState(PRODUCTION_SYSTEMS_CATEGORY);
   const [viewMode, setViewMode] = useState("grid");
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [hasLoadedFavorites, setHasLoadedFavorites] = useState(false);
@@ -46,7 +66,13 @@ export default function HomePage() {
   // Derive unique categories from the data
   const categories = useMemo(() => {
     const uniqueCategories = [...new Set(toolsData.map((tool) => tool.category))];
-    return ["All", FAVORITES_CATEGORY, ...uniqueCategories.sort()];
+    return [
+      PRODUCTION_SYSTEMS_CATEGORY,
+      DEMO_SYSTEMS_CATEGORY,
+      "All",
+      FAVORITES_CATEGORY,
+      ...uniqueCategories.sort(),
+    ];
   }, []);
 
   const favoriteIdSet = useMemo(() => new Set(favoriteIds), [favoriteIds]);
@@ -64,7 +90,9 @@ export default function HomePage() {
     return toolsData.filter((tool) => {
       const matchesCategory =
         activeCategory === "All" ||
+        (activeCategory === PRODUCTION_SYSTEMS_CATEGORY && isProductionSystem(tool)) ||
         (activeCategory === FAVORITES_CATEGORY && favoriteIdSet.has(tool.id)) ||
+        (activeCategory === DEMO_SYSTEMS_CATEGORY && isDemoSystem(tool)) ||
         tool.category === activeCategory;
       const matchesSearch = searchQuery === "" ||
         tool.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -210,9 +238,14 @@ export default function HomePage() {
                 </div>
 
                 {/* Category Badge */}
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
                     {tool.category}
+                  </span>
+                  <span
+                    className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${getSystemTypeClassName(tool)}`}
+                  >
+                    {getSystemTypeLabel(tool)}
                   </span>
                 </div>
 
@@ -252,9 +285,14 @@ export default function HomePage() {
                     <h3 className="truncate font-semibold text-slate-900">
                       {tool.title}
                     </h3>
-                    <div className="mt-1">
+                    <div className="mt-1 flex flex-wrap gap-2">
                       <span className="inline-block rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
                         {tool.category}
+                      </span>
+                      <span
+                        className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${getSystemTypeClassName(tool)}`}
+                      >
+                        {getSystemTypeLabel(tool)}
                       </span>
                     </div>
                   </div>
@@ -309,10 +347,35 @@ export default function HomePage() {
             <p className="text-slate-600">
               {activeCategory === FAVORITES_CATEGORY
                 ? "No favorites found. Star tools to add them here."
+                : activeCategory === PRODUCTION_SYSTEMS_CATEGORY
+                  ? "No production systems found."
+                : activeCategory === DEMO_SYSTEMS_CATEGORY
+                  ? "No demo systems found. Update a tool's systemType to demo to show it here."
                 : "No tools found matching your search. Try adjusting your filters or search query."}
             </p>
           </div>
         )}
+
+        <footer className="mt-14 border-t border-slate-200 pt-6 text-sm leading-6 text-slate-600">
+          <p>
+            Contact:{" "}
+            <a
+              href="mailto:cahickma@uab.edu"
+              className="font-medium text-blue-700 hover:text-blue-800"
+            >
+              cahickma@uab.edu
+            </a>
+          </p>
+          <p className="mt-3">
+            Responsible Use of AI tools: Users are responsible for reviewing AI-generated
+            content for accuracy, appropriateness, privacy, and compliance with UAB
+            policies before relying on or sharing outputs.
+          </p>
+          <p className="mt-3 font-medium text-slate-700">
+            These tools are not approved for use with patient data without further
+            authorization.
+          </p>
+        </footer>
       </section>
 
       <nexus-chat-widget />

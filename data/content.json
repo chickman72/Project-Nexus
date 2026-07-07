@@ -4,6 +4,7 @@
     "title": "Project Scrubs",
     "description": "Search for publications in PubMed, Scopus, and Web of Science.",
     "category": "Research",
+    "systemType": "demo",
     "urls": [
       {
         "url": "https://lemon-bush-0637d9610.1.azurestaticapps.net",
@@ -17,6 +18,7 @@
     "title": "Project Biosketch",
     "description": "Compare faculty CVs against NIH standards.",
     "category": "Research",
+    "systemType": "demo",
     "urls": [
       {
         "url": "https://zealous-cliff-00197f110.4.azurestaticapps.net",
@@ -30,6 +32,7 @@
     "title": "Project Guardrails",
     "description": "AI safety and compliance in Research. (SON)",
     "category": "Compliance",
+    "systemType": "production",
     "urls": [
       {
         "url": "https://witty-desert-020c35e10.7.azurestaticapps.net",
@@ -43,6 +46,7 @@
     "title": "Project Sim",
     "description": "AI Enabled Simulation builder",
     "category": "Education",
+    "systemType": "demo",
     "urls": [
       {
         "url": "https://sim.cognitiveclinicals.com",
@@ -56,6 +60,7 @@
     "title": "Project Signal",
     "description": "Learn about anything, anytime, anywhere.",
     "category": "Education",
+    "systemType": "demo",
     "urls": [
       {
         "url": "https://signal.cognitiveclinicals.com/",
@@ -69,6 +74,7 @@
     "title": "Project Retina",
     "description": "Analyze images for pneumonia.",
     "category": "Clinical",
+    "systemType": "demo",
     "urls": [
       {
         "url": "https://thankful-coast-09ee35310.6.azurestaticapps.net/",
@@ -82,6 +88,7 @@
     "title": "Project Triage",
     "description": "AI enabled health care record.",
     "category": "Clinical",
+    "systemType": "demo",
     "urls": [
       {
         "url": "https://black-meadow-0b6d7260f.4.azurestaticapps.net/",
@@ -95,6 +102,7 @@
     "title": "Project Scan",
     "description": "Create and manage QR Codes.",
     "category": "Utilities",
+    "systemType": "demo",
     "urls": [
       {
         "url": "https://scan.chrishickman.net/",
@@ -108,6 +116,7 @@
     "title": "Project Matchmaker",
     "description": "Find Research Collaborators.",
     "category": "Research",
+    "systemType": "demo",
     "urls": [
       {
         "url": "https://matchmaker.cognitiveclinicals.com/",
@@ -121,6 +130,7 @@
     "title": "Medical Literature Extraction Tool",
     "description": "Summarize scholarly articles.",
     "category": "Research",
+    "systemType": "demo",
     "urls": [
       {
         "url": "https://consensus.cognitiveclinicals.com",
@@ -134,6 +144,7 @@
     "title": "SON Chat",
     "description": "Chat with a secured AI.",
     "category": "Utilities",
+    "systemType": "demo",
     "urls": [
       {
         "url": "https://chat.cognitiveclinicals.com",
@@ -147,9 +158,24 @@
     "title": "APT Platform",
     "description": "Manage your career.",
     "category": "Utilities",
+    "systemType": "demo",
     "urls": [
       {
         "url": "https://aptitude.chrishickman.net/",
+        "label": "Open"
+      }
+    ],
+    "iconName": "Work"
+  },
+  {
+    "id": "anes",
+    "title": "Heersink DSU",
+    "description": "Heersink Digital Services Unit. (Blazer ID Required)",
+    "category": "Utilities",
+    "systemType": "production",
+    "urls": [
+      {
+        "url": "https://ai.anes.uab.edu/",
         "label": "Open"
       }
     ],
