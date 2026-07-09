@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Script from "next/script";
-import { LayoutGrid, List, Search, Star } from "lucide-react";
+import { LayoutGrid, List, LogOut, Search, Star, UserCircle } from "lucide-react";
 import { DynamicIcon } from "../components/IconHelper";
 import toolsData from "../data/content.json";
 
@@ -10,6 +10,40 @@ const FAVORITES_CATEGORY = "Favorites";
 const PRODUCTION_SYSTEMS_CATEGORY = "Production Systems";
 const DEMO_SYSTEMS_CATEGORY = "Demo Systems";
 const FAVORITES_STORAGE_KEY = "project-nexus-favorites";
+const NAME_CLAIM_TYPES = [
+  "name",
+  "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+  "http://schemas.microsoft.com/identity/claims/displayname",
+];
+const EMAIL_CLAIM_TYPES = [
+  "emails",
+  "email",
+  "preferred_username",
+  "upn",
+  "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
+  "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn",
+];
+
+function getClaimValue(claims, claimTypes) {
+  return claims?.find((claim) => claimTypes.includes(claim.typ))?.val;
+}
+
+function getUserInfo(clientPrincipal) {
+  if (!clientPrincipal) {
+    return null;
+  }
+
+  const name = getClaimValue(clientPrincipal.claims, NAME_CLAIM_TYPES);
+  const email =
+    getClaimValue(clientPrincipal.claims, EMAIL_CLAIM_TYPES) ||
+    clientPrincipal.userDetails;
+
+  return {
+    name,
+    email,
+    label: name || email || "Signed in",
+  };
+}
 
 function isDemoSystem(tool) {
   return tool.systemType === "demo";
@@ -35,6 +69,47 @@ export default function HomePage() {
   const [viewMode, setViewMode] = useState("grid");
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [hasLoadedFavorites, setHasLoadedFavorites] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
+  const [authStatus, setAuthStatus] = useState("checking");
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function loadUserInfo() {
+      try {
+        const response = await fetch("/.auth/me");
+        if (!response.ok) {
+          if (!ignore) {
+            setAuthStatus("unavailable");
+          }
+          return;
+        }
+
+        let authInfo = null;
+        try {
+          authInfo = await response.json();
+        } catch {
+          authInfo = null;
+        }
+
+        if (!ignore) {
+          setUserInfo(getUserInfo(authInfo?.clientPrincipal));
+          setAuthStatus("available");
+        }
+      } catch {
+        if (!ignore) {
+          setUserInfo(null);
+          setAuthStatus("unavailable");
+        }
+      }
+    }
+
+    loadUserInfo();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   useEffect(() => {
     try {
@@ -101,6 +176,8 @@ export default function HomePage() {
     });
   }, [searchQuery, activeCategory, favoriteIdSet]);
 
+  const signedInUser = userInfo || { label: "Signed in" };
+
   return (
     <main className="min-h-screen px-6 pb-20 pt-12 sm:px-10">
       <section className="mx-auto max-w-6xl">
@@ -117,6 +194,28 @@ export default function HomePage() {
               A launchpad for clinical education, research support, and compliance tooling.
             </p>
           </div>
+          {authStatus === "available" && (
+            <div className="flex flex-col gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 sm:flex-row sm:items-center">
+              <div className="flex min-w-0 items-center gap-3">
+                <UserCircle className="h-5 w-5 flex-shrink-0 text-slate-500" />
+                <div className="min-w-0">
+                  <p className="truncate font-medium text-slate-900">
+                    {signedInUser.label}
+                  </p>
+                  {signedInUser.name && signedInUser.email && signedInUser.name !== signedInUser.email && (
+                    <p className="truncate text-xs text-slate-500">{signedInUser.email}</p>
+                  )}
+                </div>
+              </div>
+              <a
+                href="/.auth/logout?post_logout_redirect_uri=%2F"
+                className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-100"
+              >
+                <LogOut className="h-4 w-4" />
+                Log out
+              </a>
+            </div>
+          )}
         </div>
 
         {/* Control Bar */}
