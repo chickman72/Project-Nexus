@@ -180,5 +180,19 @@
       }
     ],
     "iconName": "Work"
+  },
+  {
+    "id": "aiag",
+    "title": "UAB School of Medicine AI Advisory Group",
+    "description": "UAB School of Medicine AI Advisory Group",
+    "category": "Utilities",
+    "systemType": "production",
+    "urls": [
+      {
+        "url": "https://uab365.sharepoint.com/sites/GRP-SON-AI-Taskforce",
+        "label": "Open"
+      }
+    ],
+    "iconName": "Work"
   }
 ]
