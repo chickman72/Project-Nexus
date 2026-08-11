@@ -1,9 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
 
-// Free-tier Azure Static Web Apps cannot use the "auth" block in
-// staticwebapp.config.json (rolesSource / custom identity providers require
-// the Standard SKU), so the uab.edu restriction is enforced here instead.
-//
 // Azure Static Web Apps validates the sign-in session itself (see the
 // "authenticated" role requirement in staticwebapp.config.json) and, once a
 // request is authenticated, injects an "x-ms-client-principal" header
@@ -13,8 +9,14 @@ import { NextRequest, NextResponse } from "next/server";
 // overwritten by Azure before the request reaches here, so it can't be
 // spoofed by a caller.
 //
-// This only narrows who is granted access; it does not replace the platform
-// sign-in requirement above.
+// This is enforced here, in plain server-side code, rather than in Next.js
+// Edge Middleware: Azure Static Web Apps repackages Next.js apps into a
+// Node.js Azure Function behind the scenes, and its middleware support has
+// proven unreliable there (see the deploy failures this replaced — the
+// Function App failed its post-deploy health check ("warm up") whenever
+// middleware.ts was present). Route Handlers and Server Components run
+// through that same repackaged Function without issue, so the check lives
+// there instead.
 
 const ALLOWED_EMAIL_DOMAIN = "uab.edu";
 
@@ -41,18 +43,12 @@ function getClaimValue(claims: Claim[] | undefined, claimTypes: string[]) {
   return claims?.find((claim) => claim.typ && claimTypes.includes(claim.typ))?.val;
 }
 
-function decodeBase64Utf8(value: string): string {
-  const binary = atob(value);
-  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-  return new TextDecoder("utf-8").decode(bytes);
-}
-
 function parseClientPrincipal(header: string | null): ClientPrincipal | null {
   if (!header) {
     return null;
   }
   try {
-    return JSON.parse(decodeBase64Utf8(header));
+    return JSON.parse(Buffer.from(header, "base64").toString("utf-8"));
   } catch {
     return null;
   }
@@ -62,29 +58,28 @@ function isUabEmail(email: string) {
   return email.trim().toLowerCase().endsWith(`@${ALLOWED_EMAIL_DOMAIN}`);
 }
 
-export function middleware(request: NextRequest) {
+export interface UabAccessResult {
+  authorized: boolean;
+  email: string | null;
+}
+
+/**
+ * Reads the current request's Azure Static Web Apps client principal and
+ * reports whether the signed-in user's email/UPN is on the uab.edu domain.
+ * Call this from a Server Component or Route Handler (it relies on
+ * next/headers, so it can't run in Client Components or middleware).
+ */
+export function getUabAccess(): UabAccessResult {
   const principal = parseClientPrincipal(
-    request.headers.get("x-ms-client-principal")
+    headers().get("x-ms-client-principal")
   );
   const email =
     getClaimValue(principal?.claims, EMAIL_CLAIM_TYPES) ||
     principal?.userDetails ||
-    "";
+    null;
 
-  if (principal && isUabEmail(email)) {
-    return NextResponse.next();
-  }
-
-  return new NextResponse(
-    "Access restricted to UAB (uab.edu) accounts. Please sign out and sign back in with your UAB credentials.\n\n" +
-      "Sign out: /.auth/logout?post_logout_redirect_uri=%2F",
-    {
-      status: 403,
-      headers: { "content-type": "text/plain" },
-    }
-  );
+  return {
+    authorized: Boolean(principal && email && isUabEmail(email)),
+    email,
+  };
 }
-
-export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
-};
