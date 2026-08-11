@@ -10,7 +10,7 @@
     {
       "route": "/*",
       "allowedRoles": [
-        "authenticated"
+        "uab_user"
       ]
     }
   ],
@@ -19,5 +19,8 @@
       "statusCode": 302,
       "redirect": "/.auth/login/aad"
     }
+  },
+  "auth": {
+    "rolesSource": "/api/GetRoles"
   }
 }
