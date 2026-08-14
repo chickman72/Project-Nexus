@@ -70,9 +70,20 @@ export interface UabAccessResult {
  * next/headers, so it can't run in Client Components or middleware).
  */
 export function getUabAccess(): UabAccessResult {
+  if (
+    process.env.NODE_ENV === "development" &&
+    process.env.NEXUS_DEV_AUTH_BYPASS === "true"
+  ) {
+    return {
+      authorized: true,
+      email: "local@test.uab.edu"
+    };
+  }
+
   const principal = parseClientPrincipal(
     headers().get("x-ms-client-principal")
   );
+
   const email =
     getClaimValue(principal?.claims, EMAIL_CLAIM_TYPES) ||
     principal?.userDetails ||
