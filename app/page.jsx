@@ -176,7 +176,11 @@ export default function HomePage() {
     });
   }, [searchQuery, activeCategory, favoriteIdSet]);
 
-  const signedInUser = userInfo || { label: "Signed in" };
+  const signedInUser =
+    userInfo ||
+    (authStatus === "unavailable"
+      ? { label: "Local development", email: "local@test.uab.edu" }
+      : { label: "Signed in" });
 
   return (
     <main className="min-h-screen pb-16">
@@ -189,50 +193,43 @@ export default function HomePage() {
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--uab-gold)]">Internal resource hub</p>
                 <p className="mt-1 text-2xl font-semibold tracking-tight">Project Nexus</p>
-                <p className="text-sm text-white/80">AI &amp; Data Science Resources</p>
+                <p className="text-sm text-white/80">A central resource for AI, data science, and related tools within the UAB School of Nursing.
+
+</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-sm font-semibold text-white/85">
-              <ShieldCheck className="h-4 w-4 text-[color:var(--uab-gold)]" aria-hidden="true" />
-              UAB access only
+            <div className="flex flex-col items-start gap-3 sm:items-end">
+              <div className="flex items-center gap-2 text-sm font-semibold text-white/85">
+                <ShieldCheck className="h-4 w-4 text-[color:var(--uab-gold)]" aria-hidden="true" />
+                UAB access only
+              </div>
+              {authStatus !== "checking" && (
+                <div className="flex w-full flex-col gap-3 rounded-md border border-white/20 bg-[color:var(--uab-dark-green)] px-4 py-3 text-sm text-white/85 shadow-sm sm:w-auto sm:flex-row sm:items-center">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <UserCircle className="h-5 w-5 flex-shrink-0 text-[color:var(--uab-gold)]" />
+                    <div className="min-w-0">
+                      <p className="truncate font-semibold text-white">
+                        {signedInUser.label}
+                      </p>
+                      {signedInUser.email && (
+                        <p className="truncate text-xs text-white/70">{signedInUser.email}</p>
+                      )}
+                    </div>
+                  </div>
+                  <a
+                    href="/.auth/logout?post_logout_redirect_uri=%2F"
+                    className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-md border border-[color:var(--uab-gold)] bg-[color:var(--uab-gold)] px-3 py-2 text-xs font-semibold text-[color:var(--uab-dark-green)] transition-colors hover:bg-[color:var(--uab-gold-soft)]"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Log out
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </header>
 
         <div className="px-6 pt-10 sm:px-10">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[color:var(--uab-green)]">School of Nursing</p>
-              <h1 className="mt-2 text-4xl font-bold tracking-tight text-[color:var(--uab-dark-green)] sm:text-5xl">
-              Project Nexus
-            </h1>
-            <p className="mt-4 text-base leading-7 text-[color:var(--text-secondary)] sm:text-lg">
-              A central resource for AI, data science, and related tools within the UAB School of Nursing.
-            </p>
-          </div>
-          {authStatus === "available" && (
-            <div className="flex flex-col gap-3 rounded-md border border-[color:var(--border)] bg-white px-4 py-3 text-sm text-[color:var(--text-secondary)] shadow-sm sm:flex-row sm:items-center">
-              <div className="flex min-w-0 items-center gap-3">
-                <UserCircle className="h-5 w-5 flex-shrink-0 text-[color:var(--uab-green)]" />
-                <div className="min-w-0">
-                  <p className="truncate font-semibold text-[color:var(--text-primary)]">
-                    {signedInUser.label}
-                  </p>
-                  {signedInUser.name && signedInUser.email && signedInUser.name !== signedInUser.email && (
-                    <p className="truncate text-xs text-[color:var(--text-secondary)]">{signedInUser.email}</p>
-                  )}
-                </div>
-              </div>
-              <a
-                href="/.auth/logout?post_logout_redirect_uri=%2F"
-                className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-md border border-[color:var(--border)] bg-white px-3 py-2 text-xs font-semibold text-[color:var(--uab-green)] transition-colors hover:bg-[color:var(--uab-green-soft)]"
-              >
-                <LogOut className="h-4 w-4" />
-                Log out
-              </a>
-            </div>
-          )}
-          </div>
 
         {/* Control Bar */}
         <div className="mt-10 space-y-4">
