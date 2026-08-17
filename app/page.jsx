@@ -303,7 +303,7 @@ export default function HomePage() {
             {filteredTools.map((tool) => (
               <div
                 key={tool.id}
-                className="flex flex-col gap-4 rounded-md border border-[color:var(--border)] bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-[color:var(--uab-green)] hover:shadow-md"
+                className="flex flex-col gap-4 rounded-md border border-[color:var(--border)] bg-[color:var(--uab-surface-soft)] p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-[color:var(--uab-green)] hover:shadow-md"
               >
                 <div className="flex items-start justify-between gap-3">
                   {/* Icon */}
@@ -381,7 +381,7 @@ export default function HomePage() {
             {filteredTools.map((tool) => (
               <div
                 key={tool.id}
-                className="flex items-center gap-4 rounded-md border border-[color:var(--border)] bg-white px-6 py-4 shadow-sm transition hover:border-[color:var(--uab-green)] hover:shadow-md"
+                className="flex items-center gap-4 rounded-md border border-[color:var(--border)] bg-[color:var(--uab-surface-soft)] px-6 py-4 shadow-sm transition hover:border-[color:var(--uab-green)] hover:shadow-md"
               >
                 {/* Icon */}
                 <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-[color:var(--uab-green-soft)]">
