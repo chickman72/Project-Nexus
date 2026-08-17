@@ -42,14 +42,28 @@
     "iconName": "ShieldCheck"
   },
   {
-    "id": "sim",
-    "title": "Project Sim",
+    "id": "simbli",
+    "title": "Project Sim (BLI)",
     "description": "AI Enabled Simulation builder",
     "category": "Education",
     "systemType": "demo",
     "urls": [
       {
         "url": "https://sim.cognitiveclinicals.com",
+        "label": "Open"
+      }
+    ],
+    "iconName": "FlaskConical"
+  },
+  {
+    "id": "simson",
+    "title": "Project Sim (SoN)",
+    "description": "AI Enabled Simulation builder",
+    "category": "Education",
+    "systemType": "demo",
+    "urls": [
+      {
+        "url": "https://nice-moss-0f08ade10.7.azurestaticapps.net",
         "label": "Open"
       }
     ],
